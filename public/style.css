@@ -1,0 +1,54 @@
+h1,
+h2 {
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.main {
+  margin: 0 2.5rem;
+}
+
+.head {
+  color: #008dda;
+}
+
+body {
+  background-color: #dff5ff;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.card-text {
+  color: #378ce7;
+  font-weight: 700;
+}
+
+.card-title {
+  color: #512b81;
+  font-style: italic;
+}
+
+input {
+  border: 1px solid #512b81;
+  border-radius: 10px;
+  padding-left: 1px;
+  height: 25px;
+  width: 12rem;
+}
+input:hover {
+  box-shadow: 1px 1px 5px #705196;
+}
+
+.icon {
+  font-size: 10vw; /* Makes the font size responsive to viewport width */
+}
+@media (min-width: 768px) {
+  .icon {
+    font-size: 5vw; /* Adjust size for medium and larger screens */
+  }
+}
+@media (min-width: 1200px) {
+  .icon {
+    font-size: 3vw; /* Adjust size for extra large screens */
+  }
+}
