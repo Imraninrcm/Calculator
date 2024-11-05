@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Date</title>
+    <%- include('../ejs/header.ejs') %>
+    <style>
+      body {
+        background-color: bisque;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+
+      h1 {
+        text-align: center;
+        color: #cb9df0;
+        font-size: 40px;
+        font-family: Georgia;
+        font-style: oblique;
+        font-weight: 400;
+        text-decoration: 2px solid underline;
+      }
+
+      form {
+        width: 70%;
+        margin: auto;
+      }
+
+      .button {
+        display: flex;
+        justify-content: center;
+      }
+
+      .form-control {
+        color: aquamarine;
+        font-weight: 700;
+        font-style: oblique;
+        background-color: darkgoldenrod;
+      }
+
+      .card {
+        margin: auto;
+        width: 90%;
+        background-color: aliceblue;
+      }
+
+      #age {
+        border-right: 1px solid black;
+      }
+
+      .difference {
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      .dull {
+        opacity: 0.5;
+      }
+      .minDull {
+        opacity: 0.89;
+      }
+
+      .info {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Date</h1>
+    <form action="/date" method="post">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">From</span>
+        <input
+          type="date"
+          class="form-control"
+          name="from"
+          value="<%= today %>"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">To</span>
+        <input
+          type="date"
+          class="form-control"
+          name="to"
+          value="<%= today %>"
+        />
+      </div>
+      <div class="button">
+        <button type="submit" class="btn btn-outline-warning">Submit</button>
+      </div>
+      <hr />
+    </form>
+    <div class="card text-center">
+      <div class="container text-center">
+        <div class="row">
+          <h3 style="color: orangered">Difference</h3>
+        </div>
+        <hr />
+        <div class="row">
+          <div>
+            <div class="difference dull">
+              <span>Years</span><span>Months</span><span>Days</span>
+            </div>
+            <div class="difference minDull">
+              <span><%= ans.years %></span><span><%= ans.months %></span>
+              <span><%= ans.days %></span>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div>
+            <div
+              class="info"
+              style="color: orangered; font-size: 28px; font-weight: 400"
+            >
+              <span>From</span> <span>To</span>
+            </div>
+            <div class="info dull">
+              <span><%= from %></span><span><%= to %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
