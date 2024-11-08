@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const methodOverride = require("method-override");
 const { AgeCalculate } = require("age-calculation");
+const fs = require("fs");
 require("dotenv").config();
 
 app.use(methodOverride("_method"));
@@ -76,6 +77,14 @@ app.post("/date", (req, res) => {
   const ans = calculateDateDifference(from, to);
 
   res.render("./routes/date.ejs", { today, ans, from, to });
+});
+
+//currency route
+app.get("/currency", (req, res) => {
+  const currencies = JSON.parse(
+    fs.readFileSync("./public/currency.json", "utf-8")
+  );
+  res.render("./routes/currency.ejs", { currencies });
 });
 
 // Port setup and server start

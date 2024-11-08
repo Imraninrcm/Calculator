@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Converter</title>
+    <style>
+      body {
+        font-family: "Gill Sans";
+        background-color: bisque;
+      }
+
+      h1 {
+        text-align: center;
+        color: #9d47ee;
+        font-size: 100px;
+        text-decoration: 1px solid black underline;
+      }
+
+      .form-select {
+        width: 50%; /* Change width here */
+        max-width: 100%; /* Optional: keeps it responsive */
+      }
+
+      form {
+        width: 88%;
+        margin: auto;
+      }
+    </style>
+
+    <%- include('../ejs/header.ejs') %>
+  </head>
+  <body>
+    <h1>Currency converter</h1>
+    <form>
+      <div class="mb-3">
+        <div class="input-group">
+          <select class="form-select">
+            <%for(curr of currencies ){%>
+            <option><%= curr.code %> (<%= curr.name %>)</option>
+            <% } %>
+          </select>
+          <input
+            type="number"
+            class="form-control"
+            aria-label="Text input with dropdown button"
+            inputmode="decimal"
+          />
+        </div>
+        <div class="input-group"></div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <%- include('../ejs/footer.ejs') %>
+  </body>
+</html>
