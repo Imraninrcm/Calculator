@@ -80,11 +80,74 @@ app.post("/date", (req, res) => {
 });
 
 //currency route
-app.get("/currency", (req, res) => {
+app.get("/currency", async (req, res) => {
+  const { CurrencyConvertor } = await import("mk-currency-convertor");
+
+  // Perform a default conversion (INR to USD, amount 50)
+  let defaultAmount = 50;
+  let defaultFrom = "INR";
+  let defaultTo = "USD";
+  let defaultResult;
+
+  try {
+    defaultResult = await CurrencyConvertor(
+      defaultFrom,
+      defaultTo,
+      defaultAmount
+    );
+  } catch (error) {
+    console.error("Error in default conversion:", error);
+    defaultResult = "Conversion error";
+  }
+
+  // Load currency data from JSON file
   const currencies = JSON.parse(
     fs.readFileSync("./public/currency.json", "utf-8")
   );
-  res.render("./routes/currency.ejs", { currencies });
+
+  res.render("./routes/currency.ejs", {
+    currencies,
+    amount: defaultAmount,
+    fromCurrency: defaultFrom,
+    toCurrency: defaultTo,
+    result: defaultResult,
+  });
+});
+
+// POST route for custom currency conversion
+app.post("/currency", async (req, res) => {
+  const { CurrencyConvertor } = await import("mk-currency-convertor");
+
+  // Get form data
+  const amount = req.body.amount;
+  const fromCurrency = req.body.from;
+  const toCurrency = req.body.to;
+  let conversionResult;
+
+  try {
+    // Perform currency conversion based on form input
+    conversionResult = await CurrencyConvertor(
+      fromCurrency,
+      toCurrency,
+      amount
+    );
+  } catch (error) {
+    console.error("Error in custom conversion:", error);
+    conversionResult = "Conversion error";
+  }
+
+  // Load currency data
+  const currencies = JSON.parse(
+    fs.readFileSync("./public/currency.json", "utf-8")
+  );
+
+  res.render("./routes/currency.ejs", {
+    currencies,
+    amount,
+    fromCurrency,
+    toCurrency,
+    result: conversionResult,
+  });
 });
 
 // Port setup and server start

@@ -1,57 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Currency Converter</title>
-    <style>
-      body {
-        font-family: "Gill Sans";
-        background-color: bisque;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currency Converter</title>
+  <style>
+    body{
+      font-family: "Gill Sans";
+      background-color: #f4d2d2;
+    }
+    #h1 {
+      text-align: center;
+      color: #740938;
+      font-size: 50px;
+      text-decoration: 1px solid black underline;
+    }
+    form {
+      width: 90%;
+      margin: auto;
+      
+    }
+  </style>
+  <%- include('../ejs/header.ejs') %>
+</head>
+<body>
+  <h1 id="h1">Currency Converter</h1>
 
-      h1 {
-        text-align: center;
-        color: #9d47ee;
-        font-size: 100px;
-        text-decoration: 1px solid black underline;
-      }
-
-      .form-select {
-        width: 50%; /* Change width here */
-        max-width: 100%; /* Optional: keeps it responsive */
-      }
-
-      form {
-        width: 88%;
-        margin: auto;
-      }
-    </style>
-
-    <%- include('../ejs/header.ejs') %>
-  </head>
-  <body>
-    <h1>Currency converter</h1>
-    <form>
-      <div class="mb-3">
-        <div class="input-group">
-          <select class="form-select">
-            <%for(curr of currencies ){%>
-            <option><%= curr.code %> (<%= curr.name %>)</option>
-            <% } %>
-          </select>
-          <input
-            type="number"
-            class="form-control"
-            aria-label="Text input with dropdown button"
-            inputmode="decimal"
-          />
-        </div>
-        <div class="input-group"></div>
+  <!-- Conversion Form -->
+  <form action="/currency" method="POST">
+    <div class="mb-3">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">From:</span>
+        <select class="form-select" name="from" id="fromCurrency" onchange="updateCardTitle()">
+          <% currencies.forEach((curr) => { %>
+          <option value="<%= curr.code %>" data-name="<%= curr.name %>" data-symbol="<%= curr.symbol %>"
+            <%= fromCurrency === curr.code ? "selected" : "" %>>
+            <%= curr.code %> (<%= curr.name %>)
+          </option>
+          <% }); %>
+        </select>
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <%- include('../ejs/footer.ejs') %>
-  </body>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">To:</span>
+        <select class="form-select" name="to" id="toCurrency">
+          <% currencies.forEach((curr) => { %>
+          <option value="<%= curr.code %>" <%= toCurrency === curr.code ? "selected" : "" %>>
+            <%= curr.code %> (<%= curr.name %>)
+          </option>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="currencySymbol">₹</span>
+        <input type="text" inputmode="decimal" class="form-control" aria-label="Amount" name="amount" id="amountInput" 
+          value="<%= amount %>" oninput="updateCardTitle()" />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Convert</button>
+  </form>
+
+  <!-- Card displaying the conversion result -->
+  <div class="card" style="width: 80%; margin: auto; margin-top: 20px">
+    <div class="card-body">
+      <h5 class="card-title" id="conversionResult">
+        <%= amount %> <%= fromCurrency %> is equal to
+      </h5>
+      <p class="card-text">
+        <%= result %> <%= toCurrency %>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function updateCardTitle() {
+      // Get amount from input field
+      const amount = document.getElementById("amountInput").value || "0";
+
+      // Get selected currency's name from the "From" dropdown
+      const fromCurrency = document.getElementById("fromCurrency");
+      const selectedOption = fromCurrency.options[fromCurrency.selectedIndex];
+      const currencyName = selectedOption.getAttribute("data-name");
+
+      // Update the card title with the dynamic conversion information
+      const conversionResult = document.getElementById("conversionResult");
+      conversionResult.textContent = `${amount} ${currencyName} is equal to`;
+    }
+
+    // Initialize the card title on page load
+    document.addEventListener("DOMContentLoaded", updateCardTitle);
+  </script>
+
+  <%- include('../ejs/footer.ejs') %>
+</body>
 </html>
