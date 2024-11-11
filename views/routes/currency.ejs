@@ -11,7 +11,7 @@
     }
     #h1 {
       text-align: center;
-      color: #740938;
+      color: #624E88;
       font-size: 50px;
       text-decoration: 1px solid black underline;
     }
@@ -19,6 +19,36 @@
       width: 90%;
       margin: auto;
       
+    }
+
+    #btn{
+      display: flex;
+      justify-content: center;
+    }
+
+    #conversionResult{
+      text-align: center;
+    }
+
+    #basic-addon1, #currencySymbol{
+      background-color: #8967B3;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    #conversionResult{
+      color: #CB80AB;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-weight: 400;
+      font-style: italic;
+    }
+    
+    .card-text{
+      color: #f3ca14;
+      font-size: 25px;
+      font-weight: 500;
+      font-style: oblique;
+      text-align: end;
     }
   </style>
   <%- include('../ejs/header.ejs') %>
@@ -59,7 +89,7 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Convert</button>
+    <div id="btn"><button type="submit" class="btn btn-outline-secondary">Convert</button></div>
   </form>
 
   <!-- Card displaying the conversion result -->
@@ -69,7 +99,7 @@
         <%= amount %> <%= fromCurrency %> is equal to
       </h5>
       <p class="card-text">
-        <%= result %> <%= toCurrency %>
+        <%= result %> &nbsp; <%= toCurrency %>
       </p>
     </div>
   </div>
