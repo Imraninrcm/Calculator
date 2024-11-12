@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BMI</title>
+    <%- include('../../ejs/header.ejs') %>
+    <style>
+      body {
+        font-family: "Times New Roman", Times, serif;
+        background-color: azure;
+      }
+      #heading {
+        text-align: center;
+        font-size: 30px;
+        font-style: oblique;
+        color: black;
+        text-decoration: 2px solid #76f7a1 underline;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      form {
+        width: 85%;
+        margin: auto;
+      }
+
+      #btn {
+        display: flex;
+        justify-content: center;
+      }
+
+      .card {
+        margin: auto;
+        width: 90%;
+        background-color: aliceblue;
+        margin-top: 2%;
+      }
+
+      .range {
+        display: flex;
+        justify-content: space-between;
+        margin-top: -7.5%;
+      }
+
+      .uw {
+        color: #94d6f9;
+        font-weight: bold;
+      }
+      .n {
+        color: #63ff63;
+        font-weight: bold;
+      }
+      .ow {
+        color: #ffcc00;
+        font-weight: bold;
+      }
+      .obt {
+        color: #ffb7b7;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="heading">BMI</h2>
+    <form action="/health/bmi" method="post">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Weight (in Kg):</span>
+        <input
+          type="text"
+          inputmode="decimal"
+          class="form-control"
+          aria-describedby="basic-addon1"
+          value="60"
+          name="weight"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"
+          >Height (in Meter):</span
+        >
+        <input
+          type="text"
+          inputmode="decimal"
+          class="form-control"
+          aria-describedby="basic-addon1"
+          value="1.70"
+          name="height"
+        />
+      </div>
+      <div id="btn">
+        <button type="submit" class="btn btn-outline-secondary">Go</button>
+      </div>
+    </form>
+    <div class="card text-center">
+      <div class="container text-center">
+        <div
+          class="row align-items-center"
+          style="border-bottom: 2px solid black"
+        >
+          <div class="col-6 d-flex justify-content-end">
+            <h1 class="display-3" style="color: #ff8c00"><%= bmi %></h1>
+          </div>
+          <div class="col-6 d-flex flex-column align-items-start">
+            <h3 class="display-6" style="margin: 0; opacity: 0.7">BMI</h3>
+            <span style="font-size: 15px" class="status"> <%= status %> </span>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 2%; margin-bottom: 2%">
+          <h4>Information</h4>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="uw">Underweight</p>
+            <p style="border: 2px solid #94d6f9"></p>
+            <p class="range"><span>16.0</span>to <span>18.0</span></p>
+          </div>
+          <div class="col">
+            <p class="n">Normal</p>
+            <p style="border: 2px solid #63ff63"></p>
+            <p class="range"><span>18.5</span>to <span>24.9</span></p>
+          </div>
+          <div class="col">
+            <p class="ow">Overweight</p>
+            <p style="border: 2px solid #ffcc00"></p>
+            <p class="range"><span>25.0</span>to <span>29.9</span></p>
+          </div>
+          <div class="col">
+            <p class="obt">Obesity</p>
+            <p style="border: 2px solid #ffb7b7"></p>
+            <p class="range"><span>30.0</span>to <span>39.9</span></p>
+          </div>
+          <div class="col">
+            <p class="obt" style="color: #f00a0a">Obese</p>
+            <p style="border: 2px solid #f00a0a"></p>
+            <p class="range"><span>40.0</span>to<span>over</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../../ejs/footer.ejs') %>
+  </body>
+</html>

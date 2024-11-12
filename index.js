@@ -1,12 +1,17 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const methodOverride = require("method-override");
 const { AgeCalculate } = require("age-calculation");
 const fs = require("fs");
+const { send } = require("process");
 require("dotenv").config();
-
-app.use(methodOverride("_method"));
+const {
+  IMCCalculator,
+  MacroCalculator,
+  generos,
+  atividade,
+  objetivo,
+} = require("health-calculator-js");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -113,8 +118,6 @@ app.get("/currency", async (req, res) => {
     result: defaultResult,
   });
 });
-
-// POST route for custom currency conversion
 app.post("/currency", async (req, res) => {
   const { CurrencyConvertor } = await import("mk-currency-convertor");
 
@@ -148,6 +151,49 @@ app.post("/currency", async (req, res) => {
     toCurrency,
     result: conversionResult,
   });
+});
+
+//health route
+app.get("/health", (req, res) => {
+  res.render("./routes/health/health.ejs");
+});
+//bmi route
+app.get("/health/bmi", (req, res) => {
+  const bmi = IMCCalculator.calcular(60, 1.7);
+  const bmiClassification = IMCCalculator.classificar(bmi);
+  const classificationMap = {
+    "Abaixo do peso": "Underweight",
+    "Peso normal": "Normal",
+    Sobrepeso: "Overweight",
+    Obesidade: "Obesity",
+  };
+  const status = classificationMap[bmiClassification] || bmiClassification;
+
+  res.render("./routes/health/bmi.ejs", { bmi, status });
+});
+app.post("/health/bmi", (req, res) => {
+  let { weight, height } = req.body;
+  const bmi = IMCCalculator.calcular(Number(weight), Number(height));
+  const bmiClassification = IMCCalculator.classificar(bmi);
+  const classificationMap = {
+    "Abaixo do peso": "Underweight",
+    "Peso normal": "Normal",
+    Sobrepeso: "Overweight",
+    Obesidade: "Obesity",
+  };
+  const status = classificationMap[bmiClassification] || bmiClassification;
+
+  res.render("./routes/health/bmi.ejs", { bmi, status });
+});
+
+app.get("/health/bmr", (req, res) => {
+  res.send("wrokings");
+});
+app.get("/health/tdee", (req, res) => {
+  res.send("wrokings");
+});
+app.get("/health/mcnutri", (req, res) => {
+  res.send("working");
 });
 
 // Port setup and server start

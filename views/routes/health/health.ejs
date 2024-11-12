@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Physical fitness Indicator</title>
+    <%- include('../../ejs/header.ejs') %>
+    <style>
+      .icon {
+        font-size: 10vw; /* Makes the font size responsive to viewport width */
+      }
+      @media (min-width: 768px) {
+        .icon {
+          font-size: 5vw; /* Adjust size for medium and larger screens */
+        }
+      }
+      @media (min-width: 1200px) {
+        .icon {
+          font-size: 3vw; /* Adjust size for extra large screens */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="text-center">Physical fitness checker</h1>
+    <div class="container text-center">
+      <div class="row justify-content-center">
+        <div class="col-4 col-md-3 col-xl-2 mb-3">
+          <a href="/health/bmi"
+            ><i class="fa-solid fa-weight-scale icon" style="color: #b0a0a0"></i
+          ></a>
+          <p>BMI</p>
+        </div>
+        <div class="col-4 col-md-3 col-xl-2 mb-3">
+          <a href="/health/bmr"
+            ><i class="fa-solid fa-bars icon" style="color: #b0a0a0"></i
+          ></a>
+          <p>BMR</p>
+        </div>
+        <div class="col-4 col-md-3 col-xl-2 mb-3">
+          <a href="/health/tdee"
+            ><i class="fa-solid fa-bolt icon" style="color: #b0a0a0"></i
+          ></a>
+          <p>TDEE</p>
+        </div>
+        <div class="col-4 col-md-3 col-xl-2 mb-3">
+          <a href="/health/mcnutri"
+            ><i class="fa-solid fa-chart-pie icon" style="color: #b0a0a0"></i
+          ></a>
+          <p>Macronutrient Distribution</p>
+        </div>
+      </div>
+    </div>
+    <%- include('../../ejs/footer.ejs') %>
+  </body>
+</html>
