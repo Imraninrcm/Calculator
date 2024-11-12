@@ -185,15 +185,107 @@ app.post("/health/bmi", (req, res) => {
 
   res.render("./routes/health/bmi.ejs", { bmi, status });
 });
-
+//bmr route
 app.get("/health/bmr", (req, res) => {
-  res.send("wrokings");
+  const bmr = MacroCalculator.calcularTMB(60, 1.7, 21, generos.MASCULINO);
+  const sedentary = MacroCalculator.calcularTDEE(bmr, atividade.SEDENTARIO);
+  const lightAc = MacroCalculator.calcularTDEE(bmr, atividade.POUCO_ATIVO);
+  const modeAc = MacroCalculator.calcularTDEE(
+    bmr,
+    atividade.MODERADAMENTE_ATIVO
+  );
+  const veryAc = MacroCalculator.calcularTDEE(bmr, atividade.MUITO_ATIVO);
+  res.render("./routes/health/bmr.ejs", {
+    bmr,
+    sedentary,
+    lightAc,
+    modeAc,
+    veryAc,
+  });
 });
-app.get("/health/tdee", (req, res) => {
-  res.send("wrokings");
+app.post("/health/bmr", (req, res) => {
+  let { weight, height, age, gender } = req.body;
+
+  // Convert weight, height, and age to numbers
+  weight = parseFloat(weight);
+  height = parseFloat(height);
+  age = parseInt(age);
+
+  // Map gender input to the appropriate constant from the library
+  const genderConstant =
+    gender === "Male" ? generos.MASCULINO : generos.FEMININO;
+
+  // Calculate BMR
+  const bmr = MacroCalculator.calcularTMB(weight, height, age, genderConstant);
+
+  // Calculate daily calorie needs based on activity levels
+  const sedentary = MacroCalculator.calcularTDEE(bmr, atividade.SEDENTARIO);
+  const lightAc = MacroCalculator.calcularTDEE(bmr, atividade.POUCO_ATIVO);
+  const modeAc = MacroCalculator.calcularTDEE(
+    bmr,
+    atividade.MODERADAMENTE_ATIVO
+  );
+  const veryAc = MacroCalculator.calcularTDEE(bmr, atividade.MUITO_ATIVO);
+
+  // Render the result in the bmr.ejs template
+  res.render("./routes/health/bmr.ejs", {
+    bmr,
+    sedentary,
+    lightAc,
+    modeAc,
+    veryAc,
+  });
 });
+//macronutrients route
 app.get("/health/mcnutri", (req, res) => {
-  res.send("working");
+  const macronutrients = MacroCalculator.calcularMacros(
+    60,
+    1.7,
+    21,
+    generos.MASCULINO,
+    atividade.SEDENTARIO,
+    objetivo.BULKING
+  );
+  res.render("./routes/health/macnu.ejs", { macronutrients });
+});
+app.post("/health/mcnutri", (req, res) => {
+  // Destructure the input data from req.body
+  const { weight, height, age, gender, activity, objective } = req.body;
+
+  // Map user-friendly input values to the enums or constants expected by MacroCalculator
+  const genderMap = {
+    Male: generos.MASCULINO,
+    Female: generos.FEMININO,
+  };
+  const activityMap = {
+    Inactive: atividade.SEDENTARIO,
+    "Low Active": atividade.POUCO_ATIVO,
+    Active: atividade.ATIVO,
+    "Very Active": atividade.MUITO_ATIVO,
+  };
+  const objectiveMap = {
+    "Gain weight": objetivo.BULKING,
+    "Loss Weight": objetivo.CUTTING,
+    "Maintain weight": objetivo.MANUTENCAO,
+  };
+
+  // Convert user inputs to the expected constants for calculation
+  const genderValue = genderMap[gender];
+  const activityValue = activityMap[activity];
+  const objectiveValue = objectiveMap[objective];
+
+  // Calculate macronutrients based on the provided inputs
+  const macronutrients = MacroCalculator.calcularMacros(
+    Number(weight),
+    Number(height),
+    Number(age),
+    genderValue,
+    activityValue,
+    objectiveValue
+  );
+
+  // Render the macnu.ejs template with the calculated macronutrients
+  res.render("./routes/health/macnu.ejs", { macronutrients });
 });
 
 // Port setup and server start

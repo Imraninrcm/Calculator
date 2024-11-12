@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Micronutrients</title>
+    <%- include('../../ejs/header.ejs') %>
+    <style>
+      body {
+        font-family: "Times New Roman", Times, serif;
+        background-color: azure;
+      }
+      #heading {
+        text-align: center;
+        font-size: 30px;
+        font-style: oblique;
+        color: black;
+        text-decoration: 2px solid #76f7a1 underline;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      form {
+        width: 85%;
+        margin: auto;
+      }
+
+      #btn {
+        display: flex;
+        justify-content: center;
+      }
+
+      .card {
+        margin: auto;
+        width: 90%;
+        background-color: aliceblue;
+        margin-top: 2%;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="heading">Daily Intake Micronutrients</h2>
+    <form action="/health/mcnutri" method="post">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Weight (in Kg):</span>
+        <input
+          type="text"
+          inputmode="decimal"
+          class="form-control"
+          aria-describedby="basic-addon1"
+          value="60"
+          name="weight"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"
+          >Height (in Meter):</span
+        >
+        <input
+          type="text"
+          inputmode="decimal"
+          class="form-control"
+          aria-describedby="basic-addon1"
+          value="1.70"
+          name="height"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Age (Year only):</span>
+        <input
+          type="number"
+          class="form-control"
+          aria-describedby="basic-addon1"
+          value="21"
+          name="age"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Gender:</span>
+        <select
+          name="gender"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option selected>Male</option>
+          <option>Female</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Activity Level:</span>
+        <select
+          name="activity"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option selected>Inactive</option>
+          <option>Low Active</option>
+          <option>Active</option>
+          <option>Very Active</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Objective:</span>
+        <select
+          name="objective"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option selected>Gain weight</option>
+          <option>Loss Weight</option>
+          <option>Maintain weight</option>
+        </select>
+      </div>
+
+      <div id="btn">
+        <button type="submit" class="btn btn-outline-secondary">Go</button>
+      </div>
+    </form>
+    <div class="card text-center">
+      <div class="container text-center">
+        <h3>Daily Recommended Macronutrient Intake:</h3>
+        <div class="row">
+          <table class="table table-success table-striped">
+            <tr>
+              <th>Macronutrient</th>
+              <th>Recommended Intake Per Day</th>
+            </tr>
+            <tr>
+              <td>Carbohydrate</td>
+              <td><%= macronutrients.Carboidratos %> Grams</td>
+            </tr>
+            <tr>
+              <td>Protein</td>
+              <td><%= macronutrients.Proteinas %> Grams</td>
+            </tr>
+            <tr>
+              <td>Fat</td>
+              <td><%= macronutrients.Gorduras %> Grams</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../../ejs/footer.ejs') %>
+  </body>
+</html>

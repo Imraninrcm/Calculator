@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BMR</title>
+    <%- include('../../ejs/header.ejs') %>
+    <style>
+      body {
+        font-family: "Times New Roman", Times, serif;
+        background-color: azure;
+      }
+      #heading {
+        text-align: center;
+        font-size: 30px;
+        font-style: oblique;
+        color: black;
+        text-decoration: 2px solid #76f7a1 underline;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      form {
+        width: 85%;
+        margin: auto;
+      }
+
+      #btn {
+        display: flex;
+        justify-content: center;
+      }
+
+      .card {
+        margin: auto;
+        width: 90%;
+        background-color: aliceblue;
+        margin-top: 2%;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="heading">BMR( Basal Metabolic Rate)</h2>
+    <form action="/health/bmr" method="post">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Weight (in Kg):</span>
+        <input
+          type="text"
+          inputmode="decimal"
+          class="form-control"
+          aria-describedby="basic-addon1"
+          value="60"
+          name="weight"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"
+          >Height (in Meter):</span
+        >
+        <input
+          type="text"
+          inputmode="decimal"
+          class="form-control"
+          aria-describedby="basic-addon1"
+          value="1.70"
+          name="height"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Age (Year only):</span>
+        <input
+          type="number"
+          class="form-control"
+          aria-describedby="basic-addon1"
+          value="21"
+          name="age"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Gender:</span>
+        <select
+          name="gender"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option selected>Male</option>
+          <option>Female</option>
+        </select>
+      </div>
+
+      <div id="btn">
+        <button type="submit" class="btn btn-outline-secondary">Go</button>
+      </div>
+    </form>
+    <div class="card text-center">
+      <div class="container text-center">
+        <div class="row">
+          <h1>BMR = <b style="color: green"><%= bmr %></b> Carolies/day</h1>
+        </div>
+        <h3>Daily calorie needed based on activity level</h3>
+        <div class="row">
+          <table class="table table-success table-striped">
+            <tr>
+              <th>Activity Level</th>
+              <th>Calorie</th>
+            </tr>
+            <tr>
+              <td>Sedentary: little or no exercise</td>
+              <td><%= sedentary %></td>
+            </tr>
+            <tr>
+              <td>Exercise 1-3 times/week</td>
+              <td><%= lightAc %></td>
+            </tr>
+            <tr>
+              <td>Exercise 4-5 times/week</td>
+              <td><%= modeAc %></td>
+            </tr>
+            <tr>
+              <td>Daily exercise or intense exercise 3-4 times/week</td>
+              <td><%= veryAc %></td>
+            </tr>
+          </table>
+        </div>
+        <div class="row">
+          <p><b>Exercise:</b>15-30 minutes of elevated heart rate activity.</p>
+          <p>
+            <b>Intense exercise:</b> 45-120 minutes of elevated heart rate
+            activity.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../../ejs/footer.ejs') %>
+  </body>
+</html>
