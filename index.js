@@ -4,6 +4,7 @@ const path = require("path");
 const { AgeCalculate } = require("age-calculation");
 const fs = require("fs");
 const { send } = require("process");
+const ConvertBase = require("convert-base");
 require("dotenv").config();
 const {
   IMCCalculator,
@@ -286,6 +287,29 @@ app.post("/health/mcnutri", (req, res) => {
 
   // Render the macnu.ejs template with the calculated macronutrients
   res.render("./routes/health/macnu.ejs", { macronutrients });
+});
+
+//number syytem route
+app.get("/numbercon", (req, res) => {
+  let from = 10;
+  let to = 2;
+  let value = "10";
+  const convertBase = new ConvertBase();
+  let ans = convertBase.convert(value, from, to);
+  res.render("./routes/nc.ejs", { ans, from, to, value });
+});
+// POST route
+app.post("/numbercon", (req, res) => {
+  let { from, value, to } = req.body;
+  const convertBase = new ConvertBase();
+  let ans = convertBase.convert(value, Number(from), Number(to));
+
+  // Check if the result is NaN
+  if (isNaN(Number(ans))) {
+    ans = `Conversion failed: Invalid input "${value}"`;
+  }
+  // Render with result
+  res.render("./routes/nc.ejs", { ans, from, to, value });
 });
 
 // Port setup and server start

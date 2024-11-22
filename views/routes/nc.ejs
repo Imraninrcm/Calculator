@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number convertor</title>
+    <%- include('../ejs/header.ejs') %>
+    <style>
+      body {
+        background-color: #dbd3d3;
+        font-family: "Merriweather", serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #1c2c41;
+      }
+
+      h1 {
+        color: #091057;
+        text-align: center;
+        text-decoration: 1.5px solid #091057 underline;
+      }
+
+      #decription {
+        display: block;
+        border: 1px solid black;
+        text-align: center;
+        margin: auto;
+        width: 90%;
+        border-radius: 10px;
+      }
+      .form,
+      .card {
+        width: 90%;
+        margin: auto;
+      }
+
+      .card {
+        background-color: #659287;
+      }
+
+      .button {
+        display: flex;
+        justify-content: center;
+      }
+
+      .info {
+        display: flex;
+        justify-content: space-evenly;
+      }
+      .font {
+        color: #deaa79;
+        font-weight: bold;
+      }
+
+      .ans {
+        color: #ffe6a9;
+        font-weight: 700;
+        font-style: oblique;
+      }
+
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Numeral System</h1>
+    <div id="decription">
+      <h5>How to use:</h5>
+
+      <p>
+        Convert any Base(BIN, OCT, DEC, HEX,...) number to any Base(BIN, OCT,
+        DEC, HEX,...) upto 36 base or radix.
+      </p>
+
+      <p>(N) <sub>base/radix</sub> &hArr; (N) <sub>base/radix</sub></p>
+      <p>
+        For example: (10) <sub>10/DEC</sub> &equals; (1010) <sub>2/BIN</sub>
+      </p>
+    </div>
+    <br />
+    <div class="form">
+      <form action="/numbercon" method="post">
+        <div class="input-group mb-3">
+          <span class="input-group-text">From:</span>
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Enter number base/radix"
+            name="from"
+            value="10"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Enter value</span>
+          <input
+            type="text"
+            class="form-control"
+            oninput="upperCase()"
+            id="num"
+            name="value"
+            value="10"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">To:</span>
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Enter number base/radix"
+            name="to"
+            value="2"
+          />
+        </div>
+        <div class="button">
+          <button class="btn btn-primary">Get</button>
+        </div>
+      </form>
+    </div>
+    <br />
+    <div class="card text-center">
+      <div class="card-body">
+        <h1>Number converter</h1>
+        <div class="row" style="border-bottom: 1px solid black">
+          <div class="col font center">
+            <p>you have converted a number to:</p>
+          </div>
+          <div class="col">
+            <div class="col info font">
+              <span>From:</span>
+              <h5 class="ans"><%= from%></h5>
+            </div>
+            <div class="col info font">
+              <span>To:</span>
+              <h5 class="ans"><%= to %></h5>
+            </div>
+            <div class="col info font">
+              <span>Value:</span>
+              <h5 class="ans"><%= value %></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col font center"><p>Converted number is:</p></div>
+        <div class="col ans"><h3><%= ans %></h3></div>
+      </div>
+    </div>
+
+    <%- include('../ejs/footer.ejs') %>
+    <script>
+      function upperCase() {
+        const x = document.getElementById("num");
+        x.value = x.value.toUpperCase();
+      }
+    </script>
+  </body>
+</html>
