@@ -13,6 +13,7 @@ const {
   atividade,
   objetivo,
 } = require("health-calculator-js");
+const FastSpeedtest = require("fast-speedtest-api");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -310,6 +311,32 @@ app.post("/numbercon", (req, res) => {
   }
   // Render with result
   res.render("./routes/nc.ejs", { ans, from, to, value });
+});
+
+//speed routes
+app.get("/speed", (req, res) => {
+  res.render("./routes/speed/speed.ejs");
+});
+//default speed
+app.get("/speed/default", (req, res) => {
+  res.render("./routes/speed/default.ejs"); // Render the page immediately
+});
+app.get("/api/speed", async (req, res) => {
+  let speedtest = new FastSpeedtest({
+    token: "YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm", // required
+    verbose: false,
+    timeout: 5000,
+    https: true,
+    urlCount: 5,
+    bufferSize: 8,
+    unit: FastSpeedtest.UNITS.Mbps,
+  });
+  try {
+    const speed = await speedtest.getSpeed(); // Perform speed test
+    res.json({ success: true, speed: speed.toFixed(2) }); // Respond with the speed
+  } catch (error) {
+    res.json({ success: false, error: error.message }); // Respond with the error
+  }
 });
 
 // Port setup and server start

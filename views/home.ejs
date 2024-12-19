@@ -5,21 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
     <%- include('ejs/header.ejs') %>
-    <style>
-      .icon {
-        font-size: 10vw; /* Makes the font size responsive to viewport width */
-      }
-      @media (min-width: 768px) {
-        .icon {
-          font-size: 5vw; /* Adjust size for medium and larger screens */
-        }
-      }
-      @media (min-width: 1200px) {
-        .icon {
-          font-size: 3vw; /* Adjust size for extra large screens */
-        }
-      }
-    </style>
   </head>
   <body>
     <h1 class="text-center">This is a calculator</h1>
@@ -120,6 +105,14 @@
             style="color: #b0a0a0"
           ></i>
           <p>GST</p>
+        </div>
+        <div class="col-4 col-md-3 col-xl-2 mb-3">
+          <a href="/speed">
+            <span class="material-symbols-outlined icon" style="color: #b0a0a0">
+              wifi_tethering
+            </span>
+          </a>
+          <p>Internet Speed</p>
         </div>
       </div>
     </div>

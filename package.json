@@ -15,6 +15,7 @@
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
+    "fast-speedtest-api": "^0.3.2",
     "health-calculator-js": "^2.2.0",
     "mk-currency-convertor": "^1.0.3"
   }

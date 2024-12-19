@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internet Speed Test</title>
+
+    <%- include('../../ejs/header.ejs') %>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=do_not_disturb_on"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=help"
+    />
+    <%- include('../../ejs/header.ejs') %>
+  </head>
+  <body>
+    <h1 class="text-center">Test Your Network Connection Speed</h1>
+    <div class="container text-center">
+      <div class="row justify-content-center">
+        <div class="col-4 col-md-3 col-xl-2 mb-3">
+          <a href="/speed/default"
+            ><span
+              class="material-symbols-outlined icon"
+              style="color: #b0a0a0"
+            >
+              do_not_disturb_on
+            </span></a
+          >
+          <p>Defult Check</p>
+        </div>
+        <div class="col-4 col-md-3 col-xl-2 mb-3">
+          <a href="/speed/custom"
+            ><i class="fa-solid fa-bars icon" style="color: #b0a0a0"></i
+          ></a>
+          <p>Custom Check</p>
+        </div>
+
+        <div class="col-4 col-md-3 col-xl-2 mb-3">
+          <a href="/speed/help"
+            ><span
+              class="material-symbols-outlined icon"
+              style="color: #b0a0a0"
+            >
+              help
+            </span></a
+          >
+          <p>Get Help!</p>
+        </div>
+      </div>
+    </div>
+    <%- include('../../ejs/footer.ejs') %>
+  </body>
+</html>

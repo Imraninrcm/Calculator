@@ -105,22 +105,14 @@
   </div>
 
   <script>
-    function updateCardTitle() {
-      // Get amount from input field
-      const amount = document.getElementById("amountInput").value || "0";
+let currencySymbol = document.querySelector("#currencySymbol");
+let fromCurr = document.querySelector("#fromCurrency");
 
-      // Get selected currency's name from the "From" dropdown
-      const fromCurrency = document.getElementById("fromCurrency");
-      const selectedOption = fromCurrency.options[fromCurrency.selectedIndex];
-      const currencyName = selectedOption.getAttribute("data-name");
-
-      // Update the card title with the dynamic conversion information
-      const conversionResult = document.getElementById("conversionResult");
-      conversionResult.textContent = `${amount} ${currencyName} is equal to`;
-    }
-
-    // Initialize the card title on page load
-    document.addEventListener("DOMContentLoaded", updateCardTitle);
+fromCurr.addEventListener("change", () => {
+  const selectedOption = fromCurr.options[fromCurr.selectedIndex];
+  const symbol = selectedOption.getAttribute("data-symbol");
+  currencySymbol.textContent = symbol || "₹"; // Default to ₹ if no symbol is found
+});
   </script>
 
   <%- include('../ejs/footer.ejs') %>

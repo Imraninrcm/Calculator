@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internet Speed Checker</title>
+    <%- include('../../ejs/header.ejs') %>
+    <style>
+      #loading {
+        display: none;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Check your internet speed</h1>
+    <p>Your speed is <span id="speed-result">calculating...</span></p>
+    <p id="loading">Loading...</p>
+
+    <script>
+      async function fetchSpeed() {
+        const speedResultElement = document.getElementById("speed-result");
+
+        try {
+          const response = await fetch("/api/speed"); // Call the API
+          const data = await response.json(); // Parse JSON response
+
+          if (data.success) {
+            speedResultElement.textContent = `${data.speed} Mbps`; // Update speed
+          } else {
+            speedResultElement.textContent = `Error: ${data.error}`; // Handle error
+          }
+        } catch (error) {
+          speedResultElement.textContent = `Error: ${error.message}`; // Handle fetch error
+        }
+      }
+
+      window.onload = fetchSpeed; // Trigger the speed test on page load
+    </script>
+
+    <%- include('../../ejs/footer.ejs') %>
+  </body>
+</html>
